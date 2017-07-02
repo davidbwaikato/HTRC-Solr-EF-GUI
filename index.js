@@ -66,6 +66,39 @@ function add_titles(json_data) {
 
 }
 
+function add_titles_solr(jsonData) {
+	var itemURLs = [];
+    //console.log("jsonData = " + jsonData);
+    
+        var response = jsonData.response;
+	var docs = response.docs;
+	var num_docs = docs.length;
+
+	$.each(docs, function (doc_index, doc_val) {
+	    var htid = doc_val.id;
+
+	    var title = doc_val.title_s;
+	    $("[name='" + htid + "']").each(function () {
+		$(this).html(title)
+	    });
+	    console.log(htid + ", title = " + title);
+
+	    var itemURL = doc_val.handleUrl_s;
+	    itemURL = itemURL.replace(/^https:/, "http:");
+
+	    var ws_span = '<span style="display: none;"><br>[Workset: <span name="' + itemURL + '"></span>]</span>';
+	    $("[name='" + htid + "']").each(function () {
+		$(this).append(ws_span)
+	    });
+	    //console.log("itemURL = " + itemURL);
+	    itemURLs.push(itemURL);
+	});
+
+	workset_enrich_results(itemURLs);
+
+}
+
+
 function add_worksets(json_data) {
 
 	//console.log("****" + JSON.stringify(json_data));
@@ -329,8 +362,9 @@ function show_results(jsonData) {
 	// Example form of URL
 	//   https://babel.hathitrust.org/cgi/pt?id=hvd.hnnssu;view=1up;seq=11
 
-	var htids = [];
-
+	var ids = [];
+        var htids = [];
+    
 	var prev_id = null;
 	var prev_pages = [];
 
@@ -359,6 +393,7 @@ function show_results(jsonData) {
 			prev_pages.push(page)
 		}
 
+	        ids.push(id);
 		htids.push("htid:" + id);
 
 		prev_id = id;
@@ -372,7 +407,7 @@ function show_results(jsonData) {
 	$search_results.append(html_item);
 	//	line_num++;
 	//    }
-	console.log("*** line_num = " + line_num);
+	//console.log("*** line_num = " + line_num);
 
 	//else {
 	//	line_num--;
@@ -409,15 +444,43 @@ function show_results(jsonData) {
 	// Example URL for catalog metadata (multiple items)
 	//   http://catalog.hathitrust.org/api/volumes/brief/json/id:552;lccn:70628581|isbn:0030110408
 
-	var htids_str = htids.join("|", htids);
-	var cat_url = "http://catalog.hathitrust.org/api/volumes/brief/json/" + htids_str;
+	//var htids_str = htids.join("|", htids);
+	//var cat_url = "http://catalog.hathitrust.org/api/volumes/brief/json/" + htids_str;
+	//$.ajax({
+	//	url: cat_url,
+	//	dataType: 'jsonp',
+	//	jsonpCallback: "add_titles"
+	//});
+
+
+        // http://solr1.ischool.illinois.edu/solr/htrc-full-ef20/select?q=(id:mdp.39015071574472)&indent=on&wt=json&start=0&rows=200
+    	
+
+        var solr_search_action = $('#search-form').attr("action");
+    var ids_and_str = ids.map(function(id){return "(id:"+id.replace(/\//g,"\\/").replace(/:/g,"\\:")+")"}).join(" OR ");
+
+        //console.log(store_search_action + "?" + url);
+        //console.log("ids_and_str = " + ids_and_str);
+    
+        var url_args = {
+	    q: ids_and_str,
+	    indent: "off",
+	    wt: "json",	    
+	    start: 0,
+	    rows: ids.length,
+	};
+    
 	$.ajax({
-		url: cat_url,
-		dataType: 'jsonp',
-		jsonpCallback: "add_titles"
+	    type: 'GET',
+	    url: solr_search_action,
+	    data: url_args,
+	    dataType: 'json',
+	    success: add_titles_solr,
+	    error: ajax_error
 	});
 
 
+    
 }
 
 var store_search_args = null;
@@ -678,9 +741,9 @@ function submit_action(event) {
 	if (group_by_vol_checked) {
 		store_search_args.sort = "id asc";
 	}
-	console.log("Solr URL:\n");
+	//console.log("Solr URL:\n");
 
-	console.log(store_search_action + "?" + url);
+	//console.log(store_search_action + "?" + url);
 
 	$.ajax({
 		type: 'GET',
