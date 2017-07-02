@@ -1,0 +1,102 @@
+table.query-table tr td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 6px;
+}
+
+.show-hide-lang {
+    display: none;
+}
+
+input:disabled {
+    background:#dddddd;
+}
+
+input:disabled+label{color:#cccccc;}
+
+/*
+input[type=text]+label {
+    float: left;
+}
+*/
+
+.evenline {
+    background-color: #eee;
+    margin: 0 0 0 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.oddline {
+    background-color: #fff;
+    margin: 0 0 0 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.con{    padding: 2rem;}
+ .con .main {
+    min-height: 400px ;
+    min-height: 40rem ;
+    width: 80%;
+    font-size: 14px ;
+    font-size: 1.4rem ;
+    display: table-cell;
+    vertical-align: top;
+    padding-left: 20px ;
+    padding-left: 2rem ;
+    padding-right: 20px ;
+    padding-right: 2rem
+}
+.page {
+    background: #fffefb;
+    border: 1px solid #d5d3d3;
+    -webkit-box-shadow: rgba(0,0,0,0.1) 0 1px 10px;
+    -moz-box-shadow: rgba(0,0,0,0.1) 0 1px 10px;
+    box-shadow: rgba(0,0,0,0.1) 0 1px 10px;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#000000', Direction=145, Strength=3)
+}
+ 
+
+.con .sidebar,.con .logo {
+    width: 225px ;
+    width: 22.5rem ;
+    display: table-cell;
+    vertical-align: top;
+    padding-right: 20px ;
+    padding-right: 2rem
+}
+
+.con .sidebar {
+    font-size: 13px ;
+    font-size: 1.3rem ;
+    border-right: 1px solid #e1dfdf
+}
+
+.con .sidebar h3 {
+    border-bottom: 1px solid #ddd;
+    margin-top: 24px ;
+    margin-top: 2.4rem ;
+    padding-bottom: 4px ;
+    padding-bottom: 0.4rem ;
+    font-size: 16px ;
+    font-size: 1.6rem
+}
+
+.con .sidebar label {
+    font-size: 13px ;
+    font-size: 1.3rem
+}
+
+.con .sidebar.sidebar-right {
+    border-right: none;
+    border-left: 1px solid #e1dfdf;
+    padding-left: 20px ;
+    padding-left: 2rem ;
+    padding-right: 0
+}
+
+*.hidefacet {
+    display: none;
+    visibility: hidden
+}

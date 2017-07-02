@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+
+        <title>HTRC Extracted Feature Solr Search</title>
+        <link rel="shortcut icon" href="https://analytics.hathitrust.org/assets/images/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap -->
+        <link href="assets/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="assets/main.css" rel="stylesheet" media="screen">
+        <link href="assets/flat.css" rel="stylesheet" media="screen">
+        <link href="assets/font-awesome.css" rel="stylesheet">
+        <link href="assets/tomorrow.css" rel="stylesheet">
+	<link href="assets/jquery-ui-lightness-1.12.1/jquery-ui.min.css" rel="stylesheet">
+	
+        <link href="index.css" rel="stylesheet">
+	
+        <script src="assets/highlight.js"></script>
+        <script src="assets/jquery.js"></script>
+	<script src="assets/jquery-ui-lightness-1.12.1/jquery-ui.min.js"></script>
+        <script src="assets/stupidtable.js"></script>
+        <script src="assets/bootstrap.js"></script>
+        <script src="assets/bowser.js"></script>
+        <script type="text/javascript" src="assets/htrcwarnings.js"></script>
+        <script type="text/javascript" src="assets/uploadws.js"></script>
+        <script type="text/javascript" src="assets/ga-download-tracking.js"></script>
+	
+	<script src="iso-639-1.js"></script> <!-- defined var 'isoLangs' -->
+	<script src="index.js"></script>
+	<script src="stream-index.js"></script>
+  </head>
+  <body>
+        <nav class="navbar navbar-default navbar-fixed-top navbar-htrc" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="https://analytics.hathitrust.org/"><img src="assets/hathi.jpg" style="padding-right : 5 px ; margin-top : - 1 px ;" alt=" " height="32" width="36">
+                        HTRC Portal
+                    </a>
+                </div>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="https://analytics.hathitrust.org/">Home</a></li>
+                        
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Worksets <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                
+                                    <li><a href="#" onclick="loggingRequiredWarning('/listuserworksets')">View my worksets</a></li>
+                                
+                                <li class="divider"></li>
+                                
+                                    <li><a href="#" onclick="loggingRequiredWarning('/listallworksets')">View all worksets</a></li>
+                                
+                                <li class="divider"></li>
+                                
+                                    <li><a href="#" onclick="loggingRequiredWarning('/uploadworkset')">Upload workset</a></li>
+                                
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#" onclick="blacklightLoggingWarning ( '      https://analytics.hathitrust.org/blacklight ')">
+                                        Create workset</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                            <li><a href="#" onclick="loggingRequiredWarning('/listalgorithms')">Algorithms</a></li>
+                        
+                        
+                            <li><a href="#" onclick="loggingRequiredWarning('/listjobs')">Results</a></li>
+                        
+                        
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Capsule<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="https://wiki.htrc.illinois.edu/display/COM/HTRC+Data+Capsule">
+                                        Documentation</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    
+                                        <li><a href="#" onclick="loggingRequiredWarning('/listvms')">
+                                            Show Capsules</a></li>
+                                    
+                                    <li class="divider"></li>
+                                    
+                                        <li><a href="#" onclick="loggingRequiredWarning('/createvms')">
+                                            Create Capsule</a></li>
+                                    
+                                </ul>
+                            </li>
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Data<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://analytics.hathitrust.org/features">
+                                    Extracted Features Dataset</a>
+                                </li>
+                                <li><a href="https://analytics.hathitrust.org/genre">
+                                    Word Frequencies in English-Language Literature, 1700-1922</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Help<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://wiki.htrc.illinois.edu/display/COM/HTRC+User+Getting+Started+FAQ">
+                                    Knowledge Base</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="mailto:htrc-help@hathitrust.org?Subject=Contact">
+                                    Contact</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="https://analytics.hathitrust.org/about">About</a>
+                    </li></ul>
+                    
+                        <ul class="nav pull-right navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Sign In<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="https://analytics.hathitrust.org/login">Sign In</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="https://analytics.hathitrust.org/passwordresetmail">
+                                        Forgot Password?</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li><a href="https://analytics.hathitrust.org/signup"><span>Sign Up</span></a></li>
+                        </ul>
+                    
+                </div>
+                    <!--/.nav-collapse -->
+            </div>
+        </nav>
+        
+        
+
+    <div class="container container-panel" style="padding-top: 15px; padding-bottom: 15px;">
+        <div class="row">
+            <div class="col-md-2 col-sm-2 hidden-xs">
+                <img class="img-responsive" src="assets/hathi.jpg" alt=" ">
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-12 col-lg-8" style="margin-left: 0;">
+                <h1 style="font-weight:bold;font-size:56px">
+                    HTRC Extracted Feature Solr Search
+                </h1>
+            </div>
+        </div>
+        <div class="row" style="padding-top : 25px; font-size : 17px; line-height : 27px;">
+            <div class="col-md-12">
+
+	      <h2>Combined: Volume Metadata + Page-based Unigram Extracted Features</h2>
+	      <!--
+	      intersect(
+	      search(htrc-full-ef20,q="title_t:Recueil",fl="volumeid_s,id,title_t",sort="id asc",rows=2000),
+	      search(htrc-full-ef20,q="fr_htrctoken:voiture",fl="volumeid_s,id",sort="id asc",rows=2000),
+	      on="id=volumeid_s")
+
+	      solr/htrc-full-ef20/stream?_=1489993732395&expr=
+		-->
+	      
+	      <form action="htrc-full-ef20/stream" id="search-form">
+		<input type="hidden" id="indent" name="indent" value="on"/>
+		<input type="hidden" id="wt" name="wt" value="json"/>
+		<input type="hidden" id="start" name="start" value="0"/>
+		<input type="hidden" id="rows" name="rows" value="2000"/>
+		<table class="query-table">
+		  <tr>
+		    <td>Volume Metadata:</td>
+		    <td><input type="text"   class="search-in-progress" id="vq" name="vq"
+			       placeholder="metaname:metavalue e.g., title_t:farming"
+			       style="width: 600px;"/></td>
+		  </tr>
+		  <tr>
+		    <td></td>
+		    <td style="color: #aaaaaa; width: 400px; font-size: 14px; line-height: 16px; padding-bottom: 10px;">
+		      Indexed volume metadata fields: accessProfile_t, genre_t, imprint_t, isbn_t, issn_t, issuance,
+		      language_t, lccn_t, names_t, oclc_t, pubPlace_t, pubDate_t, rightsAttributes_t,
+		      title_t, typeOfResource_t
+		    </td>
+		  </tr>
+		  <!--
+		  <tr><td>&nbsp;</td><td></td></tr>
+		  -->
+		  <tr>
+		    <td>Page-level text:</td>
+		    <td><input type="text"   class="search-in-progress" id="q" name="q"
+			       style="width: 600px;"/></td>
+		  </tr>
+		  <tr>
+		    <td></td>
+		    <td >
+		      <input type="submit" class="search-in-progress" id="stream-search-submit" style="float: right;"/>
+		    </td>
+		  </tr>
+		</table>
+
+		<!--
+		<br><input type="checkbox" id="group-results-by-id" name="group-results-by-vol" value="on">Group by Volume
+-->
+		
+		<div id="pos-fieldsets">
+		</div>
+		
+
+                <div id="search-results-anchor"> 
+		</div>
+
+		<fieldset class="show-hide-lang">
+		  <legend style="margin-bottom: 5px; padding-top: 15px;">
+		    Other Languages (without modelled parts-of-speech)
+		  </legend>
+		  <div id="other-langs">
+		  </div>
+		</fieldset>
+
+	      </form>
+
+
+	    </div>
+        </div>
+
+	<hr />
+	<div id="search-results">
+	</div>
+	
+    </div>
+
+
+            
+    <div class="container">
+      <h4>Admin Resources</h4>
+      <ul>
+	<li><a href="admin.html">HTRC-EF Solr Admin UI (log in)</a></li>
+	<li><a href="luke_lang_mappings.html">Dynamically Generated Language Map (Part-of-Speech, and Other)</a></li>
+	<li><a href="/solr/htrc-full-ef20_shard6_replica1/admin/luke">Luke XML on shard</a></li>
+      </ul>
+    </div>
+
+	
+        <div class="container">
+        <p style="text-align: center; font-size: small; margin-top: 10px;">HTRC Portal (<a href="https://wiki.htrc.illinois.edu/display/COM/HTRC+Service+Release+v3.1+for+Uncamp+2015" target="_blank">v3.2.x</a>)
+        </p>
+        </div>
+
+        
+        <div id="push"></div>
+        
+        
+        <div class="modal fade" id="create-collection-modal" aria-hidden="true" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Create Workset</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You are being redirected to the Workset 
+Builder.
+                            If this is the first time accessing it 
+during this browser session,
+                            you will need to select "Login" from the 
+top-right menu bar before creating or modifying a workset.
+                            We are aware this is inconvenient and we're 
+working on a technical solution to eliminate this requirement.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <span class="pull-left" style="padding-top : 5 px ;"><input id="dont-show" style="margin : - 3 px 0 0 ;" type="checkbox">
+                            Don't Show This Again.</span>
+                        <a href="#" class="btn btn-link btn-sm" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                        <a id="modal-wb-url" href="" class="btn btn-sm btn-primary" onclick="goToCreateCollection ( )">
+                            Go</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="login-required-modal" aria-hidden="true" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Please Sign in</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You need to sign in to access this functionality.</p>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        
+                        <a href="#" class="btn btn-link btn-sm" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                        <a id="modal-target-url" href="" data-toggle="modal" class="btn btn-sm btn-primary">
+                            Go</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	<!--
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-42842720-8', 'auto');
+            ga('send', 'pageview');
+        </script>
+	-->
+	
+  
+
+
+
+
+
+</body></html>
